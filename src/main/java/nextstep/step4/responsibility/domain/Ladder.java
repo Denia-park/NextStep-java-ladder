@@ -1,7 +1,5 @@
 package nextstep.step4.responsibility.domain;
 
-import nextstep.step4.responsibility.util.RandomGenerator;
-
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -27,34 +25,10 @@ public class Ladder implements GameRunnable {
         final List<Row> tempRows = new ArrayList<>();
 
         for (int row = 0; row < height; row++) {
-            tempRows.add(buildRow(size));
+            tempRows.add(Row.buildRow(size));
         }
 
         return tempRows;
-    }
-
-    private Row buildRow(final int size) {
-        final List<IndexHorizontalMover> tempMovers = new ArrayList<>();
-
-        initMovers(tempMovers, size);
-
-        return new Row(tempMovers);
-    }
-
-    private void initMovers(final List<IndexHorizontalMover> tempMovers, final int size) {
-        final int firstIdx = 0;
-        final int lastIdx = size - 1;
-
-        Mover mover = Mover.first(RandomGenerator.nextBoolean());
-        tempMovers.add(mover);
-
-        for (int idx = firstIdx + 1; idx < lastIdx; idx++) {
-            mover = ((Mover) tempMovers.get(idx - 1));
-            tempMovers.add(mover.next(RandomGenerator.nextBoolean()));
-        }
-
-        mover = ((Mover) tempMovers.get(lastIdx - 1));
-        tempMovers.add(mover.last());
     }
 
     @Override
